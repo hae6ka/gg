@@ -1,25 +1,37 @@
 import Psychology from './../models/Psychology.js';
+import path, {dirname} from 'path';
+import { fileURLToPath } from 'url';
 
 export const addPsychologyPost = async (req, res) => {
     try {
+        console.log(req.body);
 
         if (req.body.password != "1") {
             return false;
         };
 
-        const { title, text, imgUrl, popularity } = req.body;
+        let fileName;
 
-        const newPsychologyPost = new Psychology({
+        if (req.files) {
+            fileName = Date.now().toString() + req.files.image.name;
+            const __dirname = dirname(fileURLToPath(import.meta.url));
+            req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName));
+        }
+
+        const { title, text, imgUrl, popularity } = req.body;
+        console.log(title);
+
+        const newPost = new Psychology({
             title,
             text,
-            imgUrl,
+            imgUrl: fileName,
             popularity
         });
 
-        await newPsychologyPost.save();
+        await newPost.save();
 
         return res.json({
-            newPsychologyPost,
+            newPost,
             message: "Получилось!"
         })
     } catch (err) {
