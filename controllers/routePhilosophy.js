@@ -6,7 +6,7 @@ export const addPsychologyPost = async (req, res) => {
     try {
         console.log(req.body);
 
-        if (req.body.password != "1") {
+        if (req.body.password != "Df83pkp-11gL") {
             return false;
         };
 

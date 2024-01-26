@@ -6,7 +6,7 @@ export const addSelfDevelopmentPost = async (req, res) => {
     try {
         console.log(req.body);
 
-        if (req.body.password != "1") {
+        if (req.body.password != "SqY7w10-9qkv") {
             return false;
         };
 
